@@ -6,7 +6,7 @@
 /*   By: khelen <khelen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 14:20:59 by khelen            #+#    #+#             */
-/*   Updated: 2020/09/02 15:34:17 by khelen           ###   ########.fr       */
+/*   Updated: 2020/09/03 13:44:57 by khelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int		main(void)
 	data->mlx_img = mlx_new_image(data->mlx_ptr, WIDTH, HEIGHT);
 	data->img_d = (int *)mlx_get_data_addr(data->mlx_img, &data->bpp,
 		&data->size_l, &data->endian);
-	//print_thread_wolf(data);
+	print_thread_wolf(data);
 	hooks_and_params(data);
 	return (0);
 }

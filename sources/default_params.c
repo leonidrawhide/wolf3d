@@ -6,7 +6,7 @@
 /*   By: khelen <khelen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 14:45:47 by khelen            #+#    #+#             */
-/*   Updated: 2020/09/02 15:01:10 by khelen           ###   ########.fr       */
+/*   Updated: 2020/09/03 14:43:11 by khelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,6 @@ void	default_params(t_wolf *data)
 	data->bpp = 32;
 	data->endian = 1;
 	data->size_l = WIDTH * 4;
+	data->ppos.px = 500;
+	data->ppos.py = 500;
 }

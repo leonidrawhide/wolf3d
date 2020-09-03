@@ -6,7 +6,7 @@
 /*   By: khelen <khelen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 15:08:27 by khelen            #+#    #+#             */
-/*   Updated: 2020/09/02 15:33:05 by khelen           ###   ########.fr       */
+/*   Updated: 2020/09/03 15:04:06 by khelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,42 @@
 ** Рисуем картинку на выбранной линии (потоке) 
 */
 
-void	print_wolf(t_wolf *data)
+void	*print_wolf(void *data)
 {
-	
+	t_wolf *newdata;
+
+	newdata = (t_wolf *)data;
+	while (newdata->y != WIDTH)
+	{
+		if (newdata->x == newdata->ppos.px && newdata->y == newdata->ppos.py)
+			newdata->img_d[newdata->x * WIDTH + newdata->y] = 0;
+		else
+			newdata->img_d[newdata->x * WIDTH + newdata->y] = newdata->color;
+		newdata->y++;
+	}
+	newdata->y = 0;
+	data = newdata;
+	return (0);
 }
 
 /*
 ** Распределение линий по потокам, кол-во которых равно высоте окна.
-** !!! 02.09 Не проверял работоспособность, ибо забыал как вводить данные
-** !!! для рисования. но по идее как-то так. Возмжно роблема может быть в
-** !!! передаче аргументов в print_wolf то есть в формате написания последнего
-** !!! аргумента pthread_create
 */
 
-void		print_thread_wolf(t_wolf *data)
+int		print_thread_wolf(t_wolf *data)
 {
-	data->thread_id = 0;
-	while (data->thread_id != HEIGHT)
+	pthread_t	thread_id;
+
+	data->y = 0;
+	data->x = 0;
+	data->color = 0xFFFFFF;
+	while (data->x != HEIGHT)
 	{
-		pthread_create(&data->thread_id, NULL, print_wolf, (void *)data);
-    	pthread_join(data->thread_id, NULL);
-		data->thread_id++;
+		pthread_create(&thread_id, NULL, print_wolf, (void *)data);
+    	pthread_join(thread_id, NULL);
+		thread_id++;
+		data->x++;
 	}
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->mlx_img, 0, 0);
+	return (0);
 }
