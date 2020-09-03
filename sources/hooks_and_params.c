@@ -6,7 +6,7 @@
 /*   By: khelen <khelen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 14:49:45 by khelen            #+#    #+#             */
-/*   Updated: 2020/09/03 15:14:13 by khelen           ###   ########.fr       */
+/*   Updated: 2020/09/03 18:15:14 by khelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,11 @@ int		mouse_hook(int mousecode, int x, int y, t_wolf *data)
 	print_thread_wolf(data1);
 	return (0);
 }*/
+
+/*
+** Обработка долгих удерживаний с клавиатуры, необходимо для
+** безпроблемного перемещения по карте.
+*/
 
 int 	key_press(int keycode, void *param)
 {

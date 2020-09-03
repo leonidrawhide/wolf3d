@@ -6,14 +6,14 @@
 /*   By: khelen <khelen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 14:20:55 by khelen            #+#    #+#             */
-/*   Updated: 2020/09/03 15:03:54 by khelen           ###   ########.fr       */
+/*   Updated: 2020/09/03 18:08:13 by khelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef WOLF_H
 # define WOLF_H
-# define HEIGHT 1000
-# define WIDTH 1000
+# define HEIGHT 520
+# define WIDTH 520
 # include <mlx.h>
 # include <math.h>
 # include <unistd.h>
@@ -30,10 +30,21 @@ typedef struct	s_plrpos
 	int			py;
 }				t_plrpos;
 
+typedef struct	s_map
+{
+	int			width;
+	int			height;
+	int			**z_matrix;
+
+	int			new_width;
+	int			new_height;
+}				t_map;
+
 typedef	struct	s_wolf
 {
 	int			x;
 	int			y;
+	int			min;
 	int			color;
 	void		*mlx_ptr;
 	void		*win_ptr;
@@ -43,11 +54,14 @@ typedef	struct	s_wolf
 	int			endian;
 	int			*img_d;
 	t_plrpos	ppos;
+	t_map		map;
 }				t_wolf;
 
 				
 
-int		main(void);
+int		main(int ac, char **av);
+
+void	printmap(t_wolf *data);
 int		red_butt(t_wolf *data);
 void	*print_wolf(void *data);
 void	default_params(t_wolf *data);
@@ -55,6 +69,7 @@ void	do_key(int key, t_wolf *data);
 void	hooks_and_params(t_wolf *data);
 int		print_thread_wolf(t_wolf *data);
 int		deal_key(int key, t_wolf *data);
+void	read_file(char *file_name, t_wolf *data);
 int		mouse_hook(int mousecode, int x, int y, t_wolf *data);
 
 

@@ -6,7 +6,7 @@
 #    By: khelen <khelen@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/02 14:26:54 by khelen            #+#    #+#              #
-#    Updated: 2020/09/03 13:45:35 by khelen           ###   ########.fr        #
+#    Updated: 2020/09/03 16:04:14 by khelen           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ HEADERS_DIRECTORY = ./includes/
 HEADERS = $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
 
 SOURCES_DIRECTORY = ./sources/
-SOURCES_LIST = wolf.c default_params.c hooks_and_params.c print.c
+SOURCES_LIST = wolf.c default_params.c hooks_and_params.c print.c read_file.c
 SOURCES = $(addprefix $(SOURCES_DIRECTORY), $(SOURCES_LIST))
 
 OBJECTS_DIRECTORY = objects/
