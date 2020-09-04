@@ -6,7 +6,7 @@
 /*   By: khelen <khelen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 15:08:27 by khelen            #+#    #+#             */
-/*   Updated: 2020/09/04 16:47:44 by khelen           ###   ########.fr       */
+/*   Updated: 2020/09/04 17:07:13 by khelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	printlab(t_wolf *data)
 
 	w = data->x / BLOCK;
 	h = data->y / BLOCK;
-	if (h < data->map.height && w < data->map.width)
+	if (w < data->map.height && h < data->map.width)
 	{
 		if (data->map.z_matrix[w][h] == 1 && data->y < data->map.new_width &&
 			data->x < data->map.new_height)
