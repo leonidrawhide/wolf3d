@@ -6,7 +6,7 @@
 /*   By: khelen <khelen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 15:08:27 by khelen            #+#    #+#             */
-/*   Updated: 2020/09/03 18:18:04 by khelen           ###   ########.fr       */
+/*   Updated: 2020/09/04 16:47:44 by khelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,27 +16,22 @@
 ** Рисуем карту
 */
 
-void	printmap(t_wolf *data)
+void	printlab(t_wolf *data)
 {
 	int w;
 	int h;
 
-	if (WIDTH < HEIGHT)
+	w = data->x / BLOCK;
+	h = data->y / BLOCK;
+	if (h < data->map.height && w < data->map.width)
 	{
-		data->map.new_width = WIDTH / data->map.width;
-		data->map.new_height = WIDTH / data->map.height;
+		if (data->map.z_matrix[w][h] == 1 && data->y < data->map.new_width &&
+			data->x < data->map.new_height)
+			data->img_d[data->x * WIDTH + data->y] = 0xFF0000;
+		else if (data->map.z_matrix[w][h] == 0 && data->y < data->map.new_width &&
+			data->x < data->map.new_height)
+			data->img_d[data->x * WIDTH + data->y] = 0x9E0202;
 	}
-	else
-	{
-		data->map.new_width = HEIGHT / data->map.width;
-		data->map.new_height = HEIGHT / data->map.height;
-	}	
-	w = data->x / data->map.new_width;
-	h = data->y / data->map.new_height;
-	if (data->map.z_matrix[w][h] == 1 && (data->x < data->min) && (data->y < data->min))
-		data->img_d[data->x * WIDTH + data->y] = 0xFF0000;
-	else
-		data->img_d[data->x * WIDTH + data->y] = 0;
 }
 
 /*
@@ -48,22 +43,36 @@ void	printplayer(t_wolf *data)
 	int x;
 	int y;
 
-	x = data->ppos.px - 15;
-	y = data->ppos.py - 15;
-	while (y < data->ppos.py)
+	x = data->ppos.px - 10;
+	y = data->ppos.py - 10;
+	while (y < (data->ppos.py + 10))
 	{
 		data->img_d[x * WIDTH + y] = data->color;
 		x++;
-		if (x == data->ppos.px)
+		if (x == (data->ppos.px + 10))
 		{
-			x = data->ppos.px - 15;
+			x = data->ppos.px - 10;
 			y++;
 		}
 	}
 }
 
 /*
-** Рисуем картинку на выбранной линии (потоке) 
+** Рисуем игрока на карте и саму карту соответственно
+*/
+
+void	printmap(t_wolf *data)
+{
+	if (data->keyboard.map_status == 1)
+	{
+		printlab(data);
+		if (data->x == data->ppos.px && data->y == data->ppos.py)
+			printplayer(data);
+	}
+}
+
+/*
+** Рисуем картинку на выбранной линии (потоке)
 */
 
 void	*print_wolf(void *data)
@@ -71,12 +80,9 @@ void	*print_wolf(void *data)
 	t_wolf *newdata;
 
 	newdata = (t_wolf *)data;
-	while (newdata->y != WIDTH)
+	while (newdata->y < WIDTH)
 	{
-		if (newdata->x == newdata->ppos.px && newdata->y == newdata->ppos.py)
-			printplayer(newdata);
-		else
-			printmap(newdata);
+		printmap(data);
 		newdata->y++;
 	}
 	newdata->y = 0;
@@ -95,7 +101,7 @@ int		print_thread_wolf(t_wolf *data)
 	data->y = 0;
 	data->x = 0;
 	data->color = 0xFFFFFF;
-	while (data->x != data->min)
+	while (data->x < HEIGHT)
 	{
 		pthread_create(&thread_id, NULL, print_wolf, (void *)data);
     	pthread_join(thread_id, NULL);

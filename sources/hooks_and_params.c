@@ -6,7 +6,7 @@
 /*   By: khelen <khelen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 14:49:45 by khelen            #+#    #+#             */
-/*   Updated: 2020/09/03 18:15:14 by khelen           ###   ########.fr       */
+/*   Updated: 2020/09/04 16:12:09 by khelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,17 @@
 
 void	do_key(int key, t_wolf *data)
 {
-	if (key == 126)
-		data->ppos.px--; // up
-	if (key == 125)
-		data->ppos.px++; // down
-	if (key == 123)
-		data->ppos.py--; // left
-	if (key == 124)
-		data->ppos.py++; // right
-	if (key == 53)
+	if (key == ARROW_UP)
+		data->ppos.px--;
+	if (key == ARROW_DOWN)
+		data->ppos.px++;
+	if (key == ARROW_LEFT)
+		data->ppos.py--;
+	if (key == ARROW_RIGHT)
+		data->ppos.py++;
+	if (key == M_KEY)
+		data->keyboard.map_status = data->keyboard.map_status == 0 ? 1 : 0;
+	if (key == ESC)
 		red_butt(data);
 }
 
@@ -86,7 +88,7 @@ int		mouse_hook(int mousecode, int x, int y, t_wolf *data)
 
 /*
 ** Обработка долгих удерживаний с клавиатуры, необходимо для
-** безпроблемного перемещения по карте.
+** плавного перемещения по карте.
 */
 
 int 	key_press(int keycode, void *param)
@@ -94,14 +96,14 @@ int 	key_press(int keycode, void *param)
 	t_wolf *data1;
 
 	data1 = (t_wolf *)param;
-	if (keycode == 126)
-		data1->ppos.px -= 5; // up
-	if (keycode == 125)
-		data1->ppos.px += 5; // down
-	if (keycode == 123)
-		data1->ppos.py -= 5; // left
-	if (keycode == 124)
-		data1->ppos.py += 5; // right
+	if (keycode == ARROW_UP)
+		data1->ppos.px -= 5;
+	if (keycode == ARROW_DOWN)
+		data1->ppos.px += 5;
+	if (keycode == ARROW_LEFT)
+		data1->ppos.py -= 5;
+	if (keycode == ARROW_RIGHT)
+		data1->ppos.py += 5;
 	param = data1;
 	print_thread_wolf(data1);
 	return (0);

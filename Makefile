@@ -6,7 +6,7 @@
 #    By: khelen <khelen@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/09/02 14:26:54 by khelen            #+#    #+#              #
-#    Updated: 2020/09/03 16:04:14 by khelen           ###   ########.fr        #
+#    Updated: 2020/09/04 15:26:42 by khelen           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ MINILIBX = $(MINILIBX_DIRECTORY)libmlx.a
 MINILIBX_DIRECTORY = ./minilibx_macos/
 MINILIBX_HEADERS = $(MINILIBX_DIRECTORY)
 
-HEADERS_LIST = wolf.h
+HEADERS_LIST = wolf.h macros.h
 HEADERS_DIRECTORY = ./includes/
 HEADERS = $(addprefix $(HEADERS_DIRECTORY), $(HEADERS_LIST))
 

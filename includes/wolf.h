@@ -6,14 +6,12 @@
 /*   By: khelen <khelen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 14:20:55 by khelen            #+#    #+#             */
-/*   Updated: 2020/09/03 18:08:13 by khelen           ###   ########.fr       */
+/*   Updated: 2020/09/04 16:05:21 by khelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef WOLF_H
 # define WOLF_H
-# define HEIGHT 520
-# define WIDTH 520
 # include <mlx.h>
 # include <math.h>
 # include <unistd.h>
@@ -21,6 +19,7 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include <pthread.h>
+# include "macros.h"
 # include "../libft/includes/libft.h"
 # include "../libft/includes/get_next_line.h"
 
@@ -40,6 +39,11 @@ typedef struct	s_map
 	int			new_height;
 }				t_map;
 
+typedef struct	s_keyboard
+{
+	int			map_status;
+}				t_keyboard;
+
 typedef	struct	s_wolf
 {
 	int			x;
@@ -55,6 +59,7 @@ typedef	struct	s_wolf
 	int			*img_d;
 	t_plrpos	ppos;
 	t_map		map;
+	t_keyboard	keyboard;
 }				t_wolf;
 
 				
