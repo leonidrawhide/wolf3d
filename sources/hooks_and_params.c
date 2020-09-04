@@ -6,7 +6,7 @@
 /*   By: khelen <khelen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 14:49:45 by khelen            #+#    #+#             */
-/*   Updated: 2020/09/04 17:29:59 by khelen           ###   ########.fr       */
+/*   Updated: 2020/09/04 18:39:22 by khelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@
 
 void	do_key(int key, t_wolf *data)
 {
-	if (key == ARROW_UP)
+	if (key == ARROW_UP || key == W_KEY)
 		data->ppos.px--;
-	if (key == ARROW_DOWN)
+	if (key == ARROW_DOWN || key == S_KEY)
 		data->ppos.px++;
-	if (key == ARROW_LEFT)
+	if (key == A_KEY)
 		data->ppos.py--;
-	if (key == ARROW_RIGHT)
+	if (key == D_KEY)
 		data->ppos.py++;
 	if (key == M_KEY)
 		data->keyboard.map_status = data->keyboard.map_status == 0 ? 1 : 0;
@@ -96,13 +96,13 @@ int 	key_press(int keycode, void *param)
 	t_wolf *data1;
 
 	data1 = (t_wolf *)param;
-	if (keycode == ARROW_UP)
+	if (keycode == ARROW_UP || keycode == W_KEY)
 		data1->ppos.px -= 5;
-	if (keycode == ARROW_DOWN)
+	if (keycode == ARROW_DOWN || keycode == S_KEY)
 		data1->ppos.px += 5;
-	if (keycode == ARROW_LEFT)
+	if (keycode == A_KEY)
 		data1->ppos.py -= 5;
-	if (keycode == ARROW_RIGHT)
+	if (keycode == D_KEY)
 		data1->ppos.py += 5;
 	param = data1;
 	print_thread_wolf(data1);

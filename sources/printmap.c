@@ -6,11 +6,34 @@
 /*   By: khelen <khelen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 17:51:23 by khelen            #+#    #+#             */
-/*   Updated: 2020/09/04 17:51:25 by khelen           ###   ########.fr       */
+/*   Updated: 2020/09/04 18:52:40 by khelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/wolf.h"
+
+void	printvision(t_wolf *data)
+{
+	int		hipotenuza;
+	int		x;
+	int		y;
+
+	x = data->ppos.px;
+	y = data->ppos.py;
+	hipotenuza = sqrt(pow(data->ppos.pxvision, 2) + pow(data->ppos.pyvision, 2));
+	while (hipotenuza > 0)
+	{
+		x = data->ppos.px + data->ppos.pxvision;
+		y = data->ppos.py + data->ppos.pyvision;
+		data->img_d[x * WIDTH + y] = data->color;
+		if (data->ppos.pxvision != 0)
+			data->ppos.pxvision += data->ppos.pxvision > 0 ? -1 : 1;
+		if (data->ppos.pyvision != 0)
+			data->ppos.pxvision += data->ppos.pxvision > 0 ? -1 : 1;
+		hipotenuza = sqrt(pow(data->ppos.pxvision, 2) + pow(data->ppos.pyvision, 2));
+	}
+	
+}
 
 /*
 ** Рисуем карту
@@ -69,7 +92,9 @@ void	printmap(t_wolf *data)
 		printlab(data);
 		if (data->x > data->ppos.px - 12 && data->x < data->ppos.px + 12
 			&& data->y > data->ppos.py - 12 && data->y > data->ppos.py + 12)
+		{
 			printplayer(data);
-			
+			//printvision(data);
+		}
 	}
 }

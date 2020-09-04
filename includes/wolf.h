@@ -6,7 +6,7 @@
 /*   By: khelen <khelen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 14:20:55 by khelen            #+#    #+#             */
-/*   Updated: 2020/09/04 17:51:42 by khelen           ###   ########.fr       */
+/*   Updated: 2020/09/04 18:27:12 by khelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,9 @@ typedef struct	s_plrpos
 {
 	int 		px;
 	int			py;
+	float		pxvision;
+	float		pyvision;
+	float		pangle;
 }				t_plrpos;
 
 typedef struct	s_map
@@ -42,6 +45,7 @@ typedef struct	s_map
 typedef struct	s_keyboard
 {
 	int			map_status;
+	int			vision;
 }				t_keyboard;
 
 typedef	struct	s_wolf
