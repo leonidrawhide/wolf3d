@@ -1,7 +1,9 @@
 # wolf3d
 
 In this project we have to write our own version of Wolfenstein 3D.
+
 Started:	September 2th 2020
+
 Finished:	In progress...
 
 ## TODO
