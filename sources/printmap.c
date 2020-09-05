@@ -6,7 +6,7 @@
 /*   By: khelen <khelen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 17:51:23 by khelen            #+#    #+#             */
-/*   Updated: 2020/09/04 18:52:40 by khelen           ###   ########.fr       */
+/*   Updated: 2020/09/05 15:58:57 by khelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,25 +14,28 @@
 
 void	printvision(t_wolf *data)
 {
-	int		hipotenuza;
+	//int		hipotenuza;
 	int		x;
 	int		y;
+	/*int		x1;
+	int		y1;*/
 
-	x = data->ppos.px;
-	y = data->ppos.py;
-	hipotenuza = sqrt(pow(data->ppos.pxvision, 2) + pow(data->ppos.pyvision, 2));
-	while (hipotenuza > 0)
-	{
-		x = data->ppos.px + data->ppos.pxvision;
-		y = data->ppos.py + data->ppos.pyvision;
-		data->img_d[x * WIDTH + y] = data->color;
-		if (data->ppos.pxvision != 0)
-			data->ppos.pxvision += data->ppos.pxvision > 0 ? -1 : 1;
-		if (data->ppos.pyvision != 0)
-			data->ppos.pxvision += data->ppos.pxvision > 0 ? -1 : 1;
-		hipotenuza = sqrt(pow(data->ppos.pxvision, 2) + pow(data->ppos.pyvision, 2));
-	}
 	
+	//data->img_d[(int)(data->ppos.pxvision * WIDTH + data->ppos.pyvision)] = 0x00FF00;
+	x = data->ppos.pxvision + data->ppos.px;
+	y = data->ppos.pyvision + data->ppos.py;
+	while (x != data->ppos.px || y != data->ppos.py)
+	{
+		data->img_d[(int)(x * WIDTH + y)] = 0x00FF00;
+		if (x > data->ppos.px)
+			x--;
+		else if (x < data->ppos.px)
+			x++;
+		if (y > data->ppos.py)
+			y--;
+		else if (y < data->ppos.py)
+			y++;
+	}
 }
 
 /*
@@ -94,7 +97,8 @@ void	printmap(t_wolf *data)
 			&& data->y > data->ppos.py - 12 && data->y > data->ppos.py + 12)
 		{
 			printplayer(data);
-			//printvision(data);
+			printvision(data);
 		}
+		printvision(data);
 	}
 }

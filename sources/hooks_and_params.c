@@ -6,7 +6,7 @@
 /*   By: khelen <khelen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 14:49:45 by khelen            #+#    #+#             */
-/*   Updated: 2020/09/04 18:39:22 by khelen           ###   ########.fr       */
+/*   Updated: 2020/09/05 15:41:43 by khelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,24 @@ void	do_key(int key, t_wolf *data)
 		data->ppos.py--;
 	if (key == D_KEY)
 		data->ppos.py++;
+	if (key == ARROW_LEFT)
+	{
+		/*data->ppos.pangle -= 0.1;
+		data->ppos.pxvision = data->ppos.px + (int)cos(data->ppos.pangle / 180)*5;*/
+	}
+	if (key == ARROW_RIGHT)
+	{
+		/*data->ppos.pangle += 0.1;
+		data->ppos.pyvision = data->ppos.py + (int)sin(data->ppos.pangle/ 180)*5;*/
+	}
 	if (key == M_KEY)
 		data->keyboard.map_status = data->keyboard.map_status == 0 ? 1 : 0;
 	if (key == ESC)
 		red_butt(data);
+	/*if (data->ppos.pangle < 0)
+		data->ppos.pangle += 2 * PI;
+	else if (data->ppos.pangle > 2 * PI)
+		data->ppos.pangle -= 2 * PI;*/
 }
 
 /*
@@ -104,6 +118,24 @@ int 	key_press(int keycode, void *param)
 		data1->ppos.py -= 5;
 	if (keycode == D_KEY)
 		data1->ppos.py += 5;
+	if (keycode == ARROW_LEFT)
+	{
+		data1->ppos.pxvision += data1->ppos.pyvision < 0 ? 1 : -1;
+		data1->ppos.pyvision += data1->ppos.pxvision < 0 ? -1 : 1;
+		/*data1->ppos.pangle -= 0.1;
+		data1->ppos.pxvision = data1->ppos.px + cos(data1->ppos.pangle / 180)*5;*/
+	}
+	if (keycode == ARROW_RIGHT)
+	{
+		data1->ppos.pxvision += data1->ppos.pyvision < 0 ? -1 : 1;
+		data1->ppos.pyvision += data1->ppos.pxvision < 0 ? 1 : -1;
+		/*data1->ppos.pangle += 0.1;
+		data1->ppos.pyvision = data1->ppos.py + sin(data1->ppos.pangle / 180)*5;*/
+	}
+	/*if (data1->ppos.pangle < 0)
+		data1->ppos.pangle += 2 * PI;
+	else if (data1->ppos.pangle > 2 * PI)
+		data1->ppos.pangle -= 2 * PI;*/
 	param = data1;
 	print_thread_wolf(data1);
 	return (0);

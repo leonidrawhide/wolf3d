@@ -6,7 +6,7 @@
 /*   By: khelen <khelen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 14:45:47 by khelen            #+#    #+#             */
-/*   Updated: 2020/09/04 18:51:19 by khelen           ###   ########.fr       */
+/*   Updated: 2020/09/05 15:38:21 by khelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void	default_params(t_wolf *data)
 	data->map.new_height = BLOCK * data->map.height;
 	data->ppos.px = data->map.new_height / 2;
 	data->ppos.py = data->map.new_width / 2;
-	/*data->ppos.pxvision = cos(data->ppos.pangle) * 5;
-	data->ppos.pyvision = sin(data->ppos.pangle) * 5;*/
+	data->ppos.pangle = PI / 2;
+	data->ppos.pxvision = 30;
+	data->ppos.pyvision = 30;
 }
