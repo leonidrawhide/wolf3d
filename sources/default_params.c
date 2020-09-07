@@ -6,7 +6,7 @@
 /*   By: khelen <khelen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 14:45:47 by khelen            #+#    #+#             */
-/*   Updated: 2020/09/05 15:38:21 by khelen           ###   ########.fr       */
+/*   Updated: 2020/09/07 15:23:03 by khelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ void	default_key_status(t_wolf *data)
 {
 	data->keyboard.map_status = 1; // потом поставить 0 чтобы игра не начиналась с карты
 	data->keyboard.vision = 90;
-	data->ppos.pxvision = 30;
-	data->ppos.pyvision = 30;
 }
 
 /*
@@ -40,7 +38,8 @@ void	default_params(t_wolf *data)
 	data->map.new_height = BLOCK * data->map.height;
 	data->ppos.px = data->map.new_height / 2;
 	data->ppos.py = data->map.new_width / 2;
-	data->ppos.pangle = PI / 2;
-	data->ppos.pxvision = 30;
-	data->ppos.pyvision = 30;
+	data->ppos.pangle = 0;
+	data->ppos.pdx = cos(data->ppos.pangle) * 5;
+	data->ppos.pdy = sin(data->ppos.pangle) * 5;
+	data->ray_count = 0;
 }

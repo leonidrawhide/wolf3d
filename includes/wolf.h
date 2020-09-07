@@ -6,7 +6,7 @@
 /*   By: khelen <khelen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 14:20:55 by khelen            #+#    #+#             */
-/*   Updated: 2020/09/04 18:27:12 by khelen           ###   ########.fr       */
+/*   Updated: 2020/09/07 15:18:43 by khelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,53 +20,9 @@
 # include <stdio.h>
 # include <pthread.h>
 # include "macros.h"
+# include "structures.h"
 # include "../libft/includes/libft.h"
-# include "../libft/includes/get_next_line.h"
-
-typedef struct	s_plrpos
-{
-	int 		px;
-	int			py;
-	float		pxvision;
-	float		pyvision;
-	float		pangle;
-}				t_plrpos;
-
-typedef struct	s_map
-{
-	int			width;
-	int			height;
-	int			**z_matrix;
-
-	int			new_width;
-	int			new_height;
-}				t_map;
-
-typedef struct	s_keyboard
-{
-	int			map_status;
-	int			vision;
-}				t_keyboard;
-
-typedef	struct	s_wolf
-{
-	int			x;
-	int			y;
-	int			min;
-	int			color;
-	void		*mlx_ptr;
-	void		*win_ptr;
-	void		*mlx_img;
-	int			bpp;
-	int			size_l;
-	int			endian;
-	int			*img_d;
-	t_plrpos	ppos;
-	t_map		map;
-	t_keyboard	keyboard;
-}				t_wolf;
-
-				
+# include "../libft/includes/get_next_line.h"				
 
 int		main(int ac, char **av);
 
@@ -81,5 +37,11 @@ int		deal_key(int key, t_wolf *data);
 void	read_file(char *file_name, t_wolf *data);
 int		mouse_hook(int mousecode, int x, int y, t_wolf *data);
 
+void	arrow_left(t_wolf *data);
+void	arrow_right(t_wolf *data);
+void	key_a(t_wolf *data, int count);
+void	key_d(t_wolf *data, int count);
+void	go_up(t_wolf *data);
+void	go_down(t_wolf *data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: khelen <khelen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 14:49:45 by khelen            #+#    #+#             */
-/*   Updated: 2020/09/05 15:41:43 by khelen           ###   ########.fr       */
+/*   Updated: 2020/09/07 15:54:27 by khelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,17 @@
 void	do_key(int key, t_wolf *data)
 {
 	if (key == ARROW_UP || key == W_KEY)
-		data->ppos.px--;
+		go_up(data);
 	if (key == ARROW_DOWN || key == S_KEY)
-		data->ppos.px++;
+		go_down(data);
 	if (key == A_KEY)
-		data->ppos.py--;
+		key_a(data, 1);
 	if (key == D_KEY)
-		data->ppos.py++;
+		key_d(data, 1);
 	if (key == ARROW_LEFT)
-	{
-		/*data->ppos.pangle -= 0.1;
-		data->ppos.pxvision = data->ppos.px + (int)cos(data->ppos.pangle / 180)*5;*/
-	}
+		arrow_left(data);
 	if (key == ARROW_RIGHT)
-	{
-		/*data->ppos.pangle += 0.1;
-		data->ppos.pyvision = data->ppos.py + (int)sin(data->ppos.pangle/ 180)*5;*/
-	}
+		arrow_right(data);
 	if (key == M_KEY)
 		data->keyboard.map_status = data->keyboard.map_status == 0 ? 1 : 0;
 	if (key == ESC)
@@ -53,9 +47,13 @@ void	do_key(int key, t_wolf *data)
 
 int		deal_key(int key, t_wolf *data)
 {
-	do_key(key, data);
+	//do_key(key, data);
+	key = key + 1;
 	mlx_clear_window(data->mlx_ptr, data->win_ptr);
 	print_thread_wolf(data);
+	/*ft_putstr("Distance is ");
+	ft_putnbr(data->hipo);
+	ft_putchar('\n');*/
 	return (0);
 }
 
@@ -111,27 +109,17 @@ int 	key_press(int keycode, void *param)
 
 	data1 = (t_wolf *)param;
 	if (keycode == ARROW_UP || keycode == W_KEY)
-		data1->ppos.px -= 5;
+		go_up(data1);
 	if (keycode == ARROW_DOWN || keycode == S_KEY)
-		data1->ppos.px += 5;
+		go_down(data1);
 	if (keycode == A_KEY)
-		data1->ppos.py -= 5;
+		key_a(data1, 5);
 	if (keycode == D_KEY)
-		data1->ppos.py += 5;
+		key_d(data1, 5);
 	if (keycode == ARROW_LEFT)
-	{
-		data1->ppos.pxvision += data1->ppos.pyvision < 0 ? 1 : -1;
-		data1->ppos.pyvision += data1->ppos.pxvision < 0 ? -1 : 1;
-		/*data1->ppos.pangle -= 0.1;
-		data1->ppos.pxvision = data1->ppos.px + cos(data1->ppos.pangle / 180)*5;*/
-	}
+		arrow_left(data1);
 	if (keycode == ARROW_RIGHT)
-	{
-		data1->ppos.pxvision += data1->ppos.pyvision < 0 ? -1 : 1;
-		data1->ppos.pyvision += data1->ppos.pxvision < 0 ? 1 : -1;
-		/*data1->ppos.pangle += 0.1;
-		data1->ppos.pyvision = data1->ppos.py + sin(data1->ppos.pangle / 180)*5;*/
-	}
+		arrow_right(data1);
 	/*if (data1->ppos.pangle < 0)
 		data1->ppos.pangle += 2 * PI;
 	else if (data1->ppos.pangle > 2 * PI)

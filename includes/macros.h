@@ -6,7 +6,7 @@
 /*   By: khelen <khelen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 15:25:46 by khelen            #+#    #+#             */
-/*   Updated: 2020/09/05 15:04:52 by khelen           ###   ########.fr       */
+/*   Updated: 2020/09/07 15:26:05 by khelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #define WIDTH 500
 #define BLOCK 48
 #define PI 3.141592
+#define FOV 15
 
 /*
 ** Макросы для клавиатуры
@@ -31,4 +32,3 @@
 #define D_KEY 2
 #define M_KEY 46
 #define RETURN 36
-
