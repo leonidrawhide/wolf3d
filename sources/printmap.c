@@ -6,7 +6,7 @@
 /*   By: khelen <khelen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 17:51:23 by khelen            #+#    #+#             */
-/*   Updated: 2020/09/07 16:02:50 by khelen           ###   ########.fr       */
+/*   Updated: 2020/09/08 13:42:52 by khelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	draw_line(float x1, float y1, t_wolf *data)
 	float	y_step;
 	float	x0;
 	float	y0;
-	t_ray	*temp;
 
 	x0 = data->ppos.px;
 	y0 = data->ppos.py;
@@ -39,8 +38,7 @@ void	draw_line(float x1, float y1, t_wolf *data)
 	x_step /= max;
 	y_step /= max;
 	data->hipo = 0;
-	temp = data->ray;
-	while (((int)(x1 - x0) != 0 || (int)(y1 - y0) != 0) /*&& (data->ray_count < FOV - 1)*/)
+	while ((int)(x1 - x0) != 0 || (int)(y1 - y0) != 0)
 	{
 		if (data->img_d[(int)x1 * WIDTH + (int)y1] != 0xFF0000 && data->img_d[(int)x1 * WIDTH + (int)y1] != 0x000000)
 			data->img_d[(int)x1 * WIDTH + (int)y1] = 0x00FF00;
@@ -54,32 +52,47 @@ void	draw_line(float x1, float y1, t_wolf *data)
 			y1 += mod(y_step);
 		else if (y1 > y0)
 			y1 -= y_step;
-		if (((int)(x1 - x0) == 0 || (int)(y1 - y0) == 0) && (data->ray_count < FOV - 2))
-		{
-			data->ray_count++;
-			/*data->ray->dist = data->hipo;
-			data->ray = data->ray->next;*/
-			/*data->ppos.pangle -= 0.1;
-			if (data->ppos.pangle < 0)
-				data->ppos.pangle += 2 * PI;
-			data->ppos.pdx = cos(data->ppos.pangle) * 5;
-			data->ppos.pdy = sin(data->ppos.pangle) * 5;
-			x1 = data->ppos.px + data->ppos.pdx * 50;
-			y1 = data->ppos.py + data->ppos.pdy * 50;*/
-		}
 	}
-	//data->ray = temp;
+	
 }
 
 void	printvision(t_wolf *data)
 {
 	float	x;
 	float	y;
+	float	x_tmp;
+	float	y_tmp;
+	float	a_tmp;
+	t_ray	*tmp;
 
-	x = data->ppos.px + data->ppos.pdx * 50;
-	y = data->ppos.py + data->ppos.pdy * 50;
-	
-	draw_line(x, y, data);
+	x_tmp = data->ppos.pdx;
+	y_tmp = data->ppos.pdy;
+	a_tmp = data->ppos.pangle;
+	/*if (!(tmp = (t_ray*)malloc(sizeof(t_ray) + FOV+5)))
+	{
+		free(tmp);
+		ft_putstr("Error! Memory for ray was not allocated.\n");
+		exit(0);
+	}
+	tmp = data->ray;*/
+	while (data->ray_count < FOV)
+	{
+		x = data->ppos.px + data->ppos.pdx * 50;
+		y = data->ppos.py + data->ppos.pdy * 50;
+		draw_line(x, y, data);
+		//tmp->dist = data->hipo;
+		//tmp = tmp->next;
+		data->ray_count++;
+		data->ppos.pangle += 0.1;
+		if (data->ppos.pangle > 2 * PI)
+			data->ppos.pangle -= 2 * PI;
+		data->ppos.pdx = cos(data->ppos.pangle) * 5;
+		data->ppos.pdy = sin(data->ppos.pangle) * 5;
+	}
+	//data->ray = tmp;
+	data->ppos.pdx = x_tmp;
+	data->ppos.pdy = y_tmp;
+	data->ppos.pangle = a_tmp;
 }
 
 void	printlab(t_wolf *data)
@@ -96,7 +109,7 @@ void	printlab(t_wolf *data)
 			data->img_d[data->x * WIDTH + data->y] = 0xFF0000;
 		else if (data->y < data->map.new_width &&
 			data->x < data->map.new_height && data->map.z_matrix[w][h] == 0 && 
-			(data->x % BLOCK != 0) && (data->y % BLOCK != 0))
+			(data->x % BLOCK != 0) && (data->y % BLOCK != 0) && data->img_d[data->x * WIDTH + data->y] != 0x00FF00)
 			data->img_d[data->x * WIDTH + data->y] = 0x9E0202;
 		else if (data->y < data->map.new_width &&
 			data->x < data->map.new_height &&
@@ -146,6 +159,7 @@ void	printmap(t_wolf *data)
 		}*/
 		if (data->x == data->ppos.px && data->y == data->ppos.py)	// рисуем один пиксель игрока
 			data->img_d[data->x * WIDTH + data->y] = data->color;
-		printvision(data);
+		//printvision(data);										// перенес в функцию print_thread_wolf
 	}
+
 }

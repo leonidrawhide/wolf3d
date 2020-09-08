@@ -6,7 +6,7 @@
 /*   By: khelen <khelen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/07 13:14:18 by khelen            #+#    #+#             */
-/*   Updated: 2020/09/07 15:39:53 by khelen           ###   ########.fr       */
+/*   Updated: 2020/09/08 12:53:47 by khelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,6 @@ typedef	struct	s_wolf
 	t_map		map;
 	t_keyboard	keyboard;
 	t_ray		*ray;
+	t_ray		*tmp;
 	int			ray_count;
 }				t_wolf;

@@ -6,7 +6,7 @@
 /*   By: khelen <khelen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 14:20:55 by khelen            #+#    #+#             */
-/*   Updated: 2020/09/07 15:18:43 by khelen           ###   ########.fr       */
+/*   Updated: 2020/09/08 12:28:52 by khelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 int		main(int ac, char **av);
 
 void	printmap(t_wolf *data);
+void	printvision(t_wolf *data);
 int		red_butt(t_wolf *data);
 void	*print_wolf(void *data);
 void	default_params(t_wolf *data);

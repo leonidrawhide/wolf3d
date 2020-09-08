@@ -6,7 +6,7 @@
 /*   By: khelen <khelen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 14:45:47 by khelen            #+#    #+#             */
-/*   Updated: 2020/09/07 15:23:03 by khelen           ###   ########.fr       */
+/*   Updated: 2020/09/08 12:52:27 by khelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,10 @@ void	default_params(t_wolf *data)
 	data->ppos.pdx = cos(data->ppos.pangle) * 5;
 	data->ppos.pdy = sin(data->ppos.pangle) * 5;
 	data->ray_count = 0;
+	if (!(data->ray = (t_ray*)malloc(sizeof(t_ray) + FOV)))
+	{
+		free(data->ray);
+		ft_putstr("Error! Memory for ray was not allocated.\n");
+		exit(0);
+	}
 }

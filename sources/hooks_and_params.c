@@ -6,7 +6,7 @@
 /*   By: khelen <khelen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 14:49:45 by khelen            #+#    #+#             */
-/*   Updated: 2020/09/07 15:54:27 by khelen           ###   ########.fr       */
+/*   Updated: 2020/09/08 12:32:09 by khelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,6 @@
 
 void	do_key(int key, t_wolf *data)
 {
-	if (key == ARROW_UP || key == W_KEY)
-		go_up(data);
-	if (key == ARROW_DOWN || key == S_KEY)
-		go_down(data);
-	if (key == A_KEY)
-		key_a(data, 1);
-	if (key == D_KEY)
-		key_d(data, 1);
-	if (key == ARROW_LEFT)
-		arrow_left(data);
-	if (key == ARROW_RIGHT)
-		arrow_right(data);
 	if (key == M_KEY)
 		data->keyboard.map_status = data->keyboard.map_status == 0 ? 1 : 0;
 	if (key == ESC)
@@ -47,8 +35,7 @@ void	do_key(int key, t_wolf *data)
 
 int		deal_key(int key, t_wolf *data)
 {
-	//do_key(key, data);
-	key = key + 1;
+	do_key(key, data);
 	mlx_clear_window(data->mlx_ptr, data->win_ptr);
 	print_thread_wolf(data);
 	/*ft_putstr("Distance is ");
@@ -125,6 +112,7 @@ int 	key_press(int keycode, void *param)
 	else if (data1->ppos.pangle > 2 * PI)
 		data1->ppos.pangle -= 2 * PI;*/
 	param = data1;
+	mlx_clear_window(data1->mlx_ptr, data1->win_ptr);
 	print_thread_wolf(data1);
 	return (0);
 }
