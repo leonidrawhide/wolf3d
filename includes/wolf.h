@@ -6,7 +6,7 @@
 /*   By: khelen <khelen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 14:20:55 by khelen            #+#    #+#             */
-/*   Updated: 2020/09/08 12:28:52 by khelen           ###   ########.fr       */
+/*   Updated: 2020/09/14 18:23:54 by khelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ int		main(int ac, char **av);
 void	printmap(t_wolf *data);
 void	printvision(t_wolf *data);
 int		red_butt(t_wolf *data);
+void	error_and_free(t_wolf *data);
 void	*print_wolf(void *data);
 void	default_params(t_wolf *data);
 void	do_key(int key, t_wolf *data);
@@ -37,6 +38,7 @@ int		print_thread_wolf(t_wolf *data);
 int		deal_key(int key, t_wolf *data);
 void	read_file(char *file_name, t_wolf *data);
 int		mouse_hook(int mousecode, int x, int y, t_wolf *data);
+void	print_raycaster(void *data);
 
 void	arrow_left(t_wolf *data);
 void	arrow_right(t_wolf *data);

@@ -6,7 +6,7 @@
 /*   By: khelen <khelen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 15:08:27 by khelen            #+#    #+#             */
-/*   Updated: 2020/09/08 12:33:57 by khelen           ###   ########.fr       */
+/*   Updated: 2020/09/14 19:15:52 by khelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	*print_wolf(void *data)
 
 int		print_thread_wolf(t_wolf *data)
 {
-	pthread_t	thread_id;
+	//pthread_t	thread_id;
 
 	data->y = 0;
 	data->x = 0;
@@ -45,13 +45,33 @@ int		print_thread_wolf(t_wolf *data)
 	mlx_clear_window(data->mlx_ptr, data->win_ptr);
 	while (data->x < HEIGHT)
 	{
-		pthread_create(&thread_id, NULL, print_wolf, (void *)data);
+		print_wolf((void*)data);
+		data->x++;
+	}
+	printvision(data);
+	data->x = 0;
+	data->y = 0;
+	/*while (data->x < HEIGHT)
+	{
+		pthread_create(&thread_id, NULL, print_raycaster, (void *)data);
     	pthread_join(thread_id, NULL);
 		thread_id++;
 		data->x++;
+	}*/
+	if (data->keyboard.map_status == 0)
+	{
+		while (data->x < HEIGHT)
+		{
+			print_raycaster((void*)data);
+			data->x++;
+		}
 	}
-	if (data->keyboard.map_status == 1)
-		printvision(data);
+	/*int n = 0;
+	while (data->dist[n] != 0)
+	{
+		printf(" r%d\n", data->dist[n]);
+		n++;
+	}*/
 	data->ray_count = 0;
 	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->mlx_img, 0, 0);
 	return (0);

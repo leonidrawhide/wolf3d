@@ -6,7 +6,7 @@
 /*   By: khelen <khelen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 17:51:23 by khelen            #+#    #+#             */
-/*   Updated: 2020/09/08 13:42:52 by khelen           ###   ########.fr       */
+/*   Updated: 2020/09/14 18:41:49 by khelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,33 +63,26 @@ void	printvision(t_wolf *data)
 	float	x_tmp;
 	float	y_tmp;
 	float	a_tmp;
-	t_ray	*tmp;
+	int		i;
 
+	i = 0;
 	x_tmp = data->ppos.pdx;
 	y_tmp = data->ppos.pdy;
 	a_tmp = data->ppos.pangle;
-	/*if (!(tmp = (t_ray*)malloc(sizeof(t_ray) + FOV+5)))
-	{
-		free(tmp);
-		ft_putstr("Error! Memory for ray was not allocated.\n");
-		exit(0);
-	}
-	tmp = data->ray;*/
 	while (data->ray_count < FOV)
 	{
 		x = data->ppos.px + data->ppos.pdx * 50;
 		y = data->ppos.py + data->ppos.pdy * 50;
 		draw_line(x, y, data);
-		//tmp->dist = data->hipo;
-		//tmp = tmp->next;
 		data->ray_count++;
-		data->ppos.pangle += 0.1;
+		data->ppos.pangle += 0.0177;
 		if (data->ppos.pangle > 2 * PI)
 			data->ppos.pangle -= 2 * PI;
 		data->ppos.pdx = cos(data->ppos.pangle) * 5;
 		data->ppos.pdy = sin(data->ppos.pangle) * 5;
+		data->dist[i] = data->hipo;
+		i++;
 	}
-	//data->ray = tmp;
 	data->ppos.pdx = x_tmp;
 	data->ppos.pdy = y_tmp;
 	data->ppos.pangle = a_tmp;
@@ -148,18 +141,14 @@ void	printplayer(t_wolf *data)
 
 void	printmap(t_wolf *data)
 {
-	if (data->keyboard.map_status == 1)
+	printlab(data);
+	/*if (data->x > data->ppos.px - 12 && data->x < data->ppos.px + 12
+		&& data->y > data->ppos.py - 12 && data->y > data->ppos.py + 12)	// круг игрока диаметр радиус 12
 	{
-		printlab(data);
-		/*if (data->x > data->ppos.px - 12 && data->x < data->ppos.px + 12
-			&& data->y > data->ppos.py - 12 && data->y > data->ppos.py + 12)	// круг игрока диаметр радиус 12
-		{
-			printplayer(data);
-			printvision(data);
-		}*/
-		if (data->x == data->ppos.px && data->y == data->ppos.py)	// рисуем один пиксель игрока
-			data->img_d[data->x * WIDTH + data->y] = data->color;
-		//printvision(data);										// перенес в функцию print_thread_wolf
-	}
-
+		printplayer(data);
+		printvision(data);
+	}*/
+	if (data->x == data->ppos.px && data->y == data->ppos.py)	// рисуем один пиксель игрока
+		data->img_d[data->x * WIDTH + data->y] = data->color;
+	//printvision(data);										// перенес в функцию print_thread_wolf
 }

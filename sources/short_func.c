@@ -6,7 +6,7 @@
 /*   By: khelen <khelen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/07 13:12:14 by khelen            #+#    #+#             */
-/*   Updated: 2020/09/07 15:18:02 by khelen           ###   ########.fr       */
+/*   Updated: 2020/09/14 18:42:39 by khelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	arrow_left(t_wolf *data)
 {
-	data->ppos.pangle -= 0.1;
+	data->ppos.pangle -= 0.0177;
 	if (data->ppos.pangle < 0)
 		data->ppos.pangle += 2 * PI;
 	data->ppos.pdx = cos(data->ppos.pangle) * 5;
@@ -23,7 +23,7 @@ void	arrow_left(t_wolf *data)
 
 void	arrow_right(t_wolf *data)
 {
-	data->ppos.pangle += 0.1;
+	data->ppos.pangle += 0.0177;
 	if (data->ppos.pangle > 2 * PI)
 		data->ppos.pangle -= 2 * PI;
 	data->ppos.pdx = cos(data->ppos.pangle) * 5;

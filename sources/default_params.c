@@ -6,7 +6,7 @@
 /*   By: khelen <khelen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 14:45:47 by khelen            #+#    #+#             */
-/*   Updated: 2020/09/08 12:52:27 by khelen           ###   ########.fr       */
+/*   Updated: 2020/09/14 18:34:26 by khelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 
 void	default_key_status(t_wolf *data)
 {
-	data->keyboard.map_status = 1; // потом поставить 0 чтобы игра не начиналась с карты
+	data->keyboard.map_status = 0; // потом поставить 0 чтобы игра не начиналась с карты
 	data->keyboard.vision = 90;
 }
 
@@ -42,10 +42,5 @@ void	default_params(t_wolf *data)
 	data->ppos.pdx = cos(data->ppos.pangle) * 5;
 	data->ppos.pdy = sin(data->ppos.pangle) * 5;
 	data->ray_count = 0;
-	if (!(data->ray = (t_ray*)malloc(sizeof(t_ray) + FOV)))
-	{
-		free(data->ray);
-		ft_putstr("Error! Memory for ray was not allocated.\n");
-		exit(0);
-	}
+	data->dist[FOV] = -1;
 }

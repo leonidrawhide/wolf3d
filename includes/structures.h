@@ -6,7 +6,7 @@
 /*   By: khelen <khelen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/07 13:14:18 by khelen            #+#    #+#             */
-/*   Updated: 2020/09/08 12:53:47 by khelen           ###   ########.fr       */
+/*   Updated: 2020/09/14 18:59:43 by khelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 typedef struct			s_ray
 {
-	int					dist;
-	struct s_ray		*next;
+	int					num;
+	int					length;
 }						t_ray;
 
 typedef struct	s_plrpos
@@ -53,14 +53,15 @@ typedef	struct	s_wolf
 	void		*mlx_ptr;
 	void		*win_ptr;
 	void		*mlx_img;
+	int			dist[FOV + 1];
 	int			bpp;
 	int			size_l;
 	int			endian;
 	int			*img_d;
+	int			**img_2d;
 	t_plrpos	ppos;
 	t_map		map;
 	t_keyboard	keyboard;
-	t_ray		*ray;
-	t_ray		*tmp;
+	t_ray		ray;
 	int			ray_count;
 }				t_wolf;
