@@ -6,7 +6,7 @@
 /*   By: khelen <khelen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/14 17:55:56 by khelen            #+#    #+#             */
-/*   Updated: 2020/09/14 19:30:59 by khelen           ###   ########.fr       */
+/*   Updated: 2020/09/15 18:55:26 by khelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,19 @@ void	print3d(t_wolf *data)
 	data->ray.length = WIDTH / FOV;
 	if (data->dist[data->y / data->ray.length] != 0 && data->dist[data->y / data->ray.length] != -1)
 	{
-		if (data->x > (data->dist[data->y / data->ray.length]) && data->x > (data->dist[data->y / data->ray.length]))
-			data->img_d[data->x * WIDTH + data->y] = 0x00FF00 - data->dist[data->y / data->ray.length] * 100;
+		/*if (data->x > (data->dist[data->y / data->ray.length]) && data->x > (data->dist[data->y / data->ray.length]))
+			data->img_d[data->x * WIDTH + data->y] = 0x00FF00 - data->dist[data->y / data->ray.length] * 100;*/
+		if (((HEIGHT - (HEIGHT - data->dist[data->y / data->ray.length])) / 2) < data->x && ((HEIGHT - data->dist[data->y / data->ray.length] / 2) > data->x))
+			data->img_d[data->x * WIDTH + data->y] = 0x00FF00 - data->dist[data->y / data->ray.length] * 10;
+		else if (data->x < HEIGHT / 2)
+			data->img_d[data->x * WIDTH + data->y] = 0x029E97;
 		else
-			data->img_d[data->x * WIDTH + data->y] = 0x0000FF;
+			data->img_d[data->x * WIDTH + data->y] = 0x9E5502;
 	}
+	else if (data->x < HEIGHT / 2)
+		data->img_d[data->x * WIDTH + data->y] = 0x029E97;
 	else
-		data->img_d[data->x * WIDTH + data->y] = 0x0000FF;
+		data->img_d[data->x * WIDTH + data->y] = 0x9E5502;
 	if ((data->y % data->ray.length == 0) && data->y != 0)
 		counter++;
 	/*int n = 0;

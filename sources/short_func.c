@@ -6,7 +6,7 @@
 /*   By: khelen <khelen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/07 13:12:14 by khelen            #+#    #+#             */
-/*   Updated: 2020/09/14 18:42:39 by khelen           ###   ########.fr       */
+/*   Updated: 2020/09/15 18:33:45 by khelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,20 @@ void	key_d(t_wolf *data, int count)
 
 void	go_up(t_wolf *data)
 {
-	data->ppos.px += data->ppos.pdx;
-	data->ppos.py += data->ppos.pdy;
+	float n;
+
+	n = data->ppos.pangle + 0.0177 * FOV / 2;
+	n = (data->ppos.pangle + 0.0177 * FOV / 2) > PI * 2 ? n - PI * 2 : n;
+	data->ppos.px += cos(data->ppos.pangle + 0.0177 * FOV / 2) * 5;
+	data->ppos.py += sin(data->ppos.pangle + 0.0177 * FOV / 2) * 5;
 }
 
 void	go_down(t_wolf *data)
 {
-	data->ppos.px -= data->ppos.pdx;
-	data->ppos.py -= data->ppos.pdy;
+	float n;
+	
+	n = data->ppos.pangle + 0.0177 * FOV / 2;
+	n = (data->ppos.pangle + 0.0177 * FOV / 2) > PI * 2 ? n - PI * 2 : n;
+	data->ppos.px -= cos(data->ppos.pangle + 0.0177 * FOV / 2) * 5;
+	data->ppos.py -= sin(data->ppos.pangle + 0.0177 * FOV / 2) * 5;
 }

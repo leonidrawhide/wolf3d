@@ -6,7 +6,7 @@
 /*   By: khelen <khelen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/07 13:14:18 by khelen            #+#    #+#             */
-/*   Updated: 2020/09/14 18:59:43 by khelen           ###   ########.fr       */
+/*   Updated: 2020/09/15 16:54:54 by khelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ typedef	struct	s_wolf
 	void		*mlx_ptr;
 	void		*win_ptr;
 	void		*mlx_img;
-	int			dist[FOV + 1];
+	int			dist[FOV + 1];  // значения сохраняются здесь с нулевого по последнее
 	int			bpp;
 	int			size_l;
 	int			endian;

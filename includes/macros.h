@@ -6,13 +6,13 @@
 /*   By: khelen <khelen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/04 15:25:46 by khelen            #+#    #+#             */
-/*   Updated: 2020/09/14 18:42:02 by khelen           ###   ########.fr       */
+/*   Updated: 2020/09/15 17:59:46 by khelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "wolf.h"
 #define HEIGHT 500
-#define WIDTH 500
+#define WIDTH 1000
 #define BLOCK 48
 #define PI 3.141592
 #define FOV 60
