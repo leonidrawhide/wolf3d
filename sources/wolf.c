@@ -6,15 +6,11 @@
 /*   By: khelen <khelen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 14:20:59 by khelen            #+#    #+#             */
-/*   Updated: 2020/09/14 18:14:41 by khelen           ###   ########.fr       */
+/*   Updated: 2020/10/10 15:46:40 by khelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/wolf.h"
-
-/*
-** Проверка на "нормальность" файла
-*/
 
 void	legit_check(char *file_name)
 {
@@ -31,15 +27,25 @@ void	legit_check(char *file_name)
 		close(fd);
 }
 
-/*
-** Начало вульфа. Выделяем память, задаем дефолтные параметры, создаем
-** "Полотно" для рисования. Печатаем его, вызываем функция для 
-** проверки нажатий клавиш.
-*/
+int		start_check(t_wolf *data)
+{
+	int x;
+	int y;
+
+	x = (int)(data->ppos.px) / data->map.block;
+	y = (int)(data->ppos.py) / data->map.block;
+	if (data->map.z_matrix[y][x] != 0)
+	{
+		ft_putstr("Error! Incorrect map! Central value of map must be 0.\n");
+		free(data);
+		return (0);
+	}
+	return (1);
+}
 
 int		main(int ac, char **av)
 {
-	t_wolf *data;
+	t_wolf		*data;
 
 	if (ac != 2 || av[1] == NULL)
 	{
@@ -49,15 +55,15 @@ int		main(int ac, char **av)
 	legit_check(av[1]);
 	if (!(data = (t_wolf*)malloc(sizeof(t_wolf) + 1)))
 	{
-		free(data);
 		ft_putstr("Error! Memory for data was not allocated.\n");
-		exit(0);
+		red_button(data);
 	}
 	read_file(av[1], data);
-	default_params(data);
+	default_params1(data);
 	data->mlx_img = mlx_new_image(data->mlx_ptr, WIDTH, HEIGHT);
-	data->img_d = (int *)mlx_get_data_addr(data->mlx_img, &data->bpp,
-		&data->size_l, &data->endian);
+	data->img_d = mlx_get_data_addr(data->mlx_img, &data->bpp, &data->size_l,
+	&data->endian);
+	texture(data);
 	print_thread_wolf(data);
 	hooks_and_params(data);
 	return (0);

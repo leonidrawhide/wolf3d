@@ -6,126 +6,99 @@
 /*   By: khelen <khelen@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/09/02 14:49:45 by khelen            #+#    #+#             */
-/*   Updated: 2020/09/08 12:32:09 by khelen           ###   ########.fr       */
+/*   Updated: 2020/11/13 18:18:24 by khelen           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/wolf.h"
 
-/*
-** Обрабатываем сигналы с клавиатуры.
-*/
-
-void	do_key(int key, t_wolf *data)
+int		collision_chkr(int px, int py, t_wolf *data)
 {
+	int x;
+	int y;
+
+	x = (int)(px) / data->map.block;
+	y = (int)(py) / data->map.block;
+	data->ppos.mpp = y * data->map.width + x;
+	if ((data->ppos.mpp > 0 && data->ppos.mpp < data->map.width *
+	data->map.height && data->map.z_matrix[y][x] == 1) ||
+	(x <= 0 || y <= 0) || (x >= data->map.width || y >= data->map.height))
+		return (0);
+	else
+		return (1);
+}
+
+int		collision_up(t_wolf *data, int i)
+{
+	if (collision_chkr(data->ppos.px + data->ppos.pdx + i, data->ppos.py,
+	data) == 0)
+		return (0);
+	if (collision_chkr(data->ppos.px, data->ppos.py + data->ppos.pdy + i,
+	data) == 0)
+		return (0);
+	if (collision_chkr(data->ppos.px + data->ppos.pdx + i, data->ppos.py +
+	data->ppos.pdy + i, data) == 0)
+		return (0);
+	return (1);
+}
+
+int		collision_down(t_wolf *data, int i)
+{
+	if (collision_chkr(data->ppos.px - data->ppos.pdx + i, data->ppos.py,
+	data) == 0)
+		return (0);
+	else if (collision_chkr(data->ppos.px, data->ppos.py - data->ppos.pdy + i,
+	data) == 0)
+		return (0);
+	if (collision_chkr(data->ppos.px - data->ppos.pdx + i, data->ppos.py -
+	data->ppos.pdy + i, data) == 0)
+		return (0);
+	return (1);
+}
+
+int		collision(int key, t_wolf *data)
+{
+	if (key == ARROW_UP)
+	{
+		if (collision_up(data, 0) == 0)
+			return (0);
+		if (collision_up(data, 5) == 0)
+			return (0);
+		if (collision_up(data, -5) == 0)
+			return (0);
+	}
+	if (key == ARROW_DOWN)
+	{
+		if (collision_down(data, 0) == 0)
+			return (0);
+		if (collision_down(data, 5) == 0)
+			return (0);
+		if (collision_down(data, -5) == 0)
+			return (0);
+	}
+	return (1);
+}
+
+int		do_key(int key, void *param)
+{
+	t_wolf *data;
+
+	data = (t_wolf *)param;
+	key2(key, data);
+	if ((collision(key, data) == 1))
+		key1(key, data);
 	if (key == M_KEY)
 		data->keyboard.map_status = data->keyboard.map_status == 0 ? 1 : 0;
+	if (key == SPACE)
+		key3(data);
+	if (key == W_KEY && data->ppos.head_pos < 90)
+		data->ppos.head_pos += 5;
+	if (key == S_KEY && data->ppos.head_pos > -90)
+		data->ppos.head_pos -= 5;
 	if (key == ESC)
-		red_butt(data);
-	/*if (data->ppos.pangle < 0)
-		data->ppos.pangle += 2 * PI;
-	else if (data->ppos.pangle > 2 * PI)
-		data->ppos.pangle -= 2 * PI;*/
-}
-
-/*
-** Функция для вызова сигнала с кливиатуры и перезаписи картинки после
-** обработки сигнала с клавиатуры. Далее перерисовываем картинку заново.
-*/
-
-int		deal_key(int key, t_wolf *data)
-{
-	do_key(key, data);
+		red_button(data);
+	param = data;
 	mlx_clear_window(data->mlx_ptr, data->win_ptr);
 	print_thread_wolf(data);
-	/*ft_putstr("Distance is ");
-	ft_putnbr(data->hipo);
-	ft_putchar('\n');*/
 	return (0);
-}
-
-/*
-** Функция для вызова выхода из программы.
-*/
-
-int		red_butt(t_wolf *data)
-{
-	free(data);
-	exit(0);
-}
-
-/*
-** Обрабатываем сигналы с мышки.
-*/
-
-int		mouse_hook(int mousecode, int x, int y, t_wolf *data)
-{
-	x = y;
-	if (mousecode == 5)
-		data->x = 1;
-	print_thread_wolf(data);
-	return (0);
-}
-
-/*int		key_release(int keycode, void *param)
-{
-	t_wolf *data1;
-
-	data1 = (t_wolf *)param;
-	if (keycode == 126)
-		data1->ppos.px--; // up
-	if (keycode == 125)
-		data1->ppos.px++; // down
-	if (keycode == 123)
-		data1->ppos.py--; // left
-	if (keycode == 124)
-		data1->ppos.py++; // right
-	param = data1;
-	print_thread_wolf(data1);
-	return (0);
-}*/
-
-/*
-** Обработка долгих удерживаний с клавиатуры, необходимо для
-** плавного перемещения по карте.
-*/
-
-int 	key_press(int keycode, void *param)
-{
-	t_wolf *data1;
-
-	data1 = (t_wolf *)param;
-	if (keycode == ARROW_UP || keycode == W_KEY)
-		go_up(data1);
-	if (keycode == ARROW_DOWN || keycode == S_KEY)
-		go_down(data1);
-	if (keycode == A_KEY)
-		key_a(data1, 5);
-	if (keycode == D_KEY)
-		key_d(data1, 5);
-	if (keycode == ARROW_LEFT)
-		arrow_left(data1);
-	if (keycode == ARROW_RIGHT)
-		arrow_right(data1);
-	/*if (data1->ppos.pangle < 0)
-		data1->ppos.pangle += 2 * PI;
-	else if (data1->ppos.pangle > 2 * PI)
-		data1->ppos.pangle -= 2 * PI;*/
-	param = data1;
-	mlx_clear_window(data1->mlx_ptr, data1->win_ptr);
-	print_thread_wolf(data1);
-	return (0);
-}
-
-/*
-** Раскидаем сигналы мышки и клавиш по функциям.
-*/
-
-void	hooks_and_params(t_wolf *data)
-{
-	mlx_key_hook(data->win_ptr, deal_key, data);
-	mlx_hook(data->win_ptr, 17, (1L << 17), red_butt, data);
-	mlx_mouse_hook(data->win_ptr, mouse_hook, data);
-	mlx_hook(data->win_ptr, 2, 0, key_press, data);
-	mlx_loop(data->mlx_ptr);
 }
